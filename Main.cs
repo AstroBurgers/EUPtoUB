@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rage;
-using Rage.Attributes;
-using Rage.ConsoleCommands;
-using Rage.Native;
-using System.Windows.Forms;
+﻿using Rage;
 
 [assembly: Rage.Attributes.Plugin("EUP to UB", Description = "Does this even get read?", Author = "Astro")]
 
@@ -48,28 +39,9 @@ namespace EUPtoUB
         internal static void Main()
         {
             FileHandler.ValidateFile();
-            while (true)
-            {
-                GameFiber.Yield();
+            Game.AddConsoleCommands();
 
-                if (Game.IsKeyDown(Keys.G))
-                {
-                    FileHandler.AppendFile();
-                }
-            }
-        }
-
-        internal static bool IsComponentValid(PED_COMPONENT component, int Drawable, int Texture)
-        {
-            // xE825F6B6CEA7671D = IS_PED_COMPONENT_VARIATION_VALID
-            if (NativeFunction.Natives.xE825F6B6CEA7671D<bool>(MainPlayer, component, Drawable, Texture))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            GameFiber.Hibernate();
         }
     }
 }

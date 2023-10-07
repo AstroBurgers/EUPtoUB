@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleCommands.cs" />
     <Compile Include="Conversion Handlers.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="Main.cs" />
