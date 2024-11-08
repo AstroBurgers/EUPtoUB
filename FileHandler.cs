@@ -23,32 +23,32 @@ namespace EUPtoUB
         internal static void AppendFile()
         {
             string str = $"<Ped chance=\"UPTOPLAYER\" " +
-                $"prop_glasses=\"{Conversion_Handlers.GetPropID(PROP_TYPE.ANCHOR_EYES)}\" " +
-                $"tex_glasses=\"{Conversion_Handlers.GetPropTextureID(PROP_TYPE.ANCHOR_EYES)}\" " +
-                $"prop_hats=\"{Conversion_Handlers.GetPropID(PROP_TYPE.ANCHOR_HEAD)}\" " +
-                $"tex_hats=\"{Conversion_Handlers.GetPropTextureID(PROP_TYPE.ANCHOR_HEAD)}\" " +
-                $"prop_ears=\"{Conversion_Handlers.GetPropID(PROP_TYPE.ANCHOR_EARS)}\" " +
-                $"tex_ears=\"{Conversion_Handlers.GetPropTextureID(PROP_TYPE.ANCHOR_EARS)}\" " +
-                $"comp_beard=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_BERD)}\" " +
-                $"tex_beard=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_BERD)}\" " +
-                $"comp_shirtoverlay=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_JBIB)}\" " +
-                $"tex_shirtoverlay=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_JBIB)}\" " +
-                $"comp_shirt=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_TORSO)}\" " +
-                $"tex_shirt=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_TORSO)}\" " +
-                $"comp_decals=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_DECL)}\"  " +
-                $"tex_decals=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_DECL)}\" " +
-                $"comp_accessories=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_SPECIAL)}\" " +
-                $"tex_accessories=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_SPECIAL)}\" " +
-                $"comp_pants=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_LEG)}\" " +
-                $"tex_pants=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_LEG)}\" " +
-                $"comp_shoes=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_FEET)}\" " +
-                $"comp_eyes=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_TEETH)}\" " +
-                $"tex_eyes=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_TEETH)}\" " +
-                $"comp_tasks=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_SPECIAL2)}\"  " +
-                $"tex_tasks=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_SPECIAL2)}\" " +
-                $"comp_hands=\"{Conversion_Handlers.GetDrawableID(PED_COMPONENT.PED_COMP_HAND)}\" " +
-                $"tex_hands=\"{Conversion_Handlers.GetTextureID(PED_COMPONENT.PED_COMP_HAND)}\">{EntryPoint.MainPlayer.Model.Name}</Ped>";
-                
+                $"prop_glasses=\"{ConversionHandlers.GetPropId(PropType.AnchorEyes)}\" " +
+                $"tex_glasses=\"{ConversionHandlers.GetPropTextureId(PropType.AnchorEyes)}\" " +
+                $"prop_hats=\"{ConversionHandlers.GetPropId(PropType.AnchorHead)}\" " +
+                $"tex_hats=\"{ConversionHandlers.GetPropTextureId(PropType.AnchorHead)}\" " +
+                $"prop_ears=\"{ConversionHandlers.GetPropId(PropType.AnchorEars)}\" " +
+                $"tex_ears=\"{ConversionHandlers.GetPropTextureId(PropType.AnchorEars)}\" " +
+                $"comp_beard=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompBerd)}\" " +
+                $"tex_beard=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompBerd)}\" " +
+                $"comp_shirtoverlay=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompJbib)}\" " +
+                $"tex_shirtoverlay=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompJbib)}\" " +
+                $"comp_shirt=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompTorso)}\" " +
+                $"tex_shirt=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompTorso)}\" " +
+                $"comp_decals=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompDecl)}\"  " +
+                $"tex_decals=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompDecl)}\" " +
+                $"comp_accessories=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompSpecial)}\" " +
+                $"tex_accessories=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompSpecial)}\" " +
+                $"comp_pants=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompLeg)}\" " +
+                $"tex_pants=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompLeg)}\" " +
+                $"comp_shoes=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompFeet)}\" " +
+                $"comp_eyes=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompTeeth)}\" " +
+                $"tex_eyes=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompTeeth)}\" " +
+                $"comp_tasks=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompSpecial2)}\"  " +
+                $"tex_tasks=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompSpecial2)}\" " +
+                $"comp_hands=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompHand)}\" " +
+                $"tex_hands=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompHand)}\">{EntryPoint.MainPlayer.Model.Name}</Ped>";
+
             using (FileStream fs2 = new FileStream(CSharpFilePath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
             using (StreamWriter sw = new StreamWriter(fs2))
             {

@@ -4,33 +4,33 @@
 
 namespace EUPtoUB
 {
-    internal enum PED_COMPONENT
+    internal enum PedComponent
     {
-        PED_COMP_HEAD = 0,
-        PED_COMP_BERD = 1,
-        PED_COMP_HAIR = 2,
-        PED_COMP_TORSO = 3, // UPPERSKIN?
-        PED_COMP_LEG = 4, // PANTS
-        PED_COMP_HAND = 5, //PARACHUTE
-        PED_COMP_FEET = 6, // SHOES
-        PED_COMP_TEETH = 7, // ACCS?
-        PED_COMP_SPECIAL = 8, // UNDERCOAT?
-        PED_COMP_SPECIAL2 = 9, //PV_COMP_TASK 
-        PED_COMP_DECL = 10,      //DECAL
-        PED_COMP_JBIB = 11 // JBIB/SHIRT
+        PedCompHead = 0,
+        PedCompBerd = 1,
+        PedCompHair = 2,
+        PedCompTorso = 3, // UPPERSKIN?
+        PedCompLeg = 4, // PANTS
+        PedCompHand = 5, //PARACHUTE
+        PedCompFeet = 6, // SHOES
+        PedCompTeeth = 7, // ACCS?
+        PedCompSpecial = 8, // UNDERCOAT?
+        PedCompSpecial2 = 9, //PV_COMP_TASK 
+        PedCompDecl = 10,      //DECAL
+        PedCompJbib = 11 // JBIB/SHIRT
     }
 
-    internal enum PROP_TYPE
+    internal enum PropType
     {
-        ANCHOR_HEAD = 0,
-        ANCHOR_EYES,
-        ANCHOR_EARS,
-        ANCHOR_MOUTH,
-        ANCHOR_LEFT_HAND,
-        ANCHOR_RIGHT_HAND,
-        ANCHOR_LEFT_WRIST,
-        ANCHOR_RIGHT_WRIST,
-        ANCHOR_HIP
+        AnchorHead = 0,
+        AnchorEyes,
+        AnchorEars,
+        AnchorMouth,
+        AnchorLeftHand,
+        AnchorRightHand,
+        AnchorLeftWrist,
+        AnchorRightWrist,
+        AnchorHip
     }
 
     public class EntryPoint
