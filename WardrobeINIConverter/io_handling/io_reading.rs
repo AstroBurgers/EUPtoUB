@@ -1,5 +1,0 @@
-﻿use std;
-
-fn main() {
-
-}
