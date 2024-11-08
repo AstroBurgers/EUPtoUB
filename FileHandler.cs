@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace EUPtoUB
 {
@@ -20,9 +21,10 @@ namespace EUPtoUB
             }
         }
 
-        internal static void AppendFile()
+        internal static void AppendFile(string outfitName)
         {
-            string str = $"<Ped chance=\"UPTOPLAYER\" " +
+            string outfitComment = outfitName == String.Empty ? String.Empty : $"<!-- {outfitName} --> ";
+            string str = $"{outfitComment}<Ped chance=\"UPTOPLAYER\" " +
                 $"prop_glasses=\"{ConversionHandlers.GetPropId(PropType.AnchorEyes)}\" " +
                 $"tex_glasses=\"{ConversionHandlers.GetPropTextureId(PropType.AnchorEyes)}\" " +
                 $"prop_hats=\"{ConversionHandlers.GetPropId(PropType.AnchorHead)}\" " +
