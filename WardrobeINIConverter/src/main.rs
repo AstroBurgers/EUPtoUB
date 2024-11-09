@@ -1,3 +1,5 @@
+mod file_parsing;
+
 fn main() {
     println!("Welcome! Enter any letter to continue...");
     press_any_key_to_continue();
