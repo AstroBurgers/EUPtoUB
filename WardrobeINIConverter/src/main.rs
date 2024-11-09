@@ -15,6 +15,8 @@ fn main() {
         }
         Err(err) => println!("Error: {}", err)
     }
+    println!("wardrobe.ini Conversion complete! Exiting shortly...");
+    std::thread::sleep(std::time::Duration::from_millis(3500));
 }
 
 fn press_any_key_to_continue() {
