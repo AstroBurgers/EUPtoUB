@@ -1,34 +1,67 @@
-﻿mod file_parsing{
-    use std::fs;
-    use std::io::{BufRead, BufReader, Lines};
+﻿pub mod file_parsing {
+    use std::{io};
+    use std::io::{BufRead, BufReader};
     use std;
     use std::collections::HashMap;
     use std::fs::File;
 
-    struct IniRead{
-        name: String,
-        content: LineData,
+    #[derive(Debug)]
+    struct Attribute {
+        item_id: i32,
+        texture_id: i32,
     }
 
-    impl IniRead {
-        pub fn start_parse(){
-            let file_path = "WardrobeINIConverter/plugins/EUP/wardrobe.ini";
-            let buff_reader = BufReader::new(fs::File::open(file_path)).lines()?;
-            for line in buff_reader{
-                let
-                let lineData = IniRead{
-                    name:
-                };
+    #[derive(Debug)]
+    pub struct Entry {
+        title: String,
+        attributes: HashMap<String, Attribute>,
+    }
+
+    pub fn parse_file(file_path: &str) -> io::Result<Vec<Entry>> {
+        let file = File::open(file_path)?;
+        let buff_reader = BufReader::new(file);
+
+        let mut entries = Vec::new();
+        let mut current_entry: Option<Entry> = None;
+        for line in buff_reader.lines() {
+            let line = line?.trim().to_string();
+            if line.is_empty() {
+                continue;
             }
 
+            if line.starts_with("[") && line.ends_with("]") {
+                if let Some(entry) = current_entry.take(){
+                    entries.push(entry);
+                }
 
+                let title = line[1..line.len() - 1].to_string();
+                current_entry = Some(Entry{
+                    title,
+                    attributes: HashMap::new()
+                })
+            }
+            else if let Some((key, value)) = line.split_once('='){
+                let key = key.trim().to_string();
+                let value = value.trim().to_string();
+                let value_parts: Vec<&str> = value.trim().split(':').collect();
+
+                if value_parts.len() == 2 {
+                    if let (Ok(item_id), Ok(texture_id)) = (value_parts[0].parse::<i32>(), value_parts[1].parse::<i32>()){
+                        if let Some(entry) = current_entry.as_mut() {
+                            entry.attributes.insert(
+                                key,
+                                Attribute
+                                {item_id, texture_id}
+                            );
+                        }
+                    }
+                }
+            }
+        }
+        if let Some(entry) = current_entry{
+            entries.push(entry);
         }
 
-
-    }
-
-    struct LineData{
-        comp_name: String,
-        data: HashMap<i16, i16>
+        Ok(entries)
     }
 }
