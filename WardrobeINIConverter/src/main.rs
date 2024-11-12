@@ -1,6 +1,8 @@
 use crate::file_parsing::file_parsing::parse_file;
+use crate::file_writing::write_entry_to_xml;
 
 mod file_parsing;
+mod file_writing;
 
 fn main() {
     println!("Welcome! Enter any letter to continue...");
@@ -10,7 +12,8 @@ fn main() {
     match parse_file(file_path) {
         Ok(entries) => {
             for entry in entries {
-                println!("{:?}", entry)
+                println!("{:?}", entry);
+                write_entry_to_xml("./plugins/EUP/", &entry).unwrap()
             }
         }
         Err(err) => println!("Error: {}", err)

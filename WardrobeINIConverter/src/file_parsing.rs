@@ -6,15 +6,15 @@
     use std::fs::File;
 
     #[derive(Debug)]
-    struct Attribute {
-        item_id: i32,
-        texture_id: i32,
+    pub struct Attribute {
+        pub item_id: i32,
+        pub texture_id: i32,
     }
 
     #[derive(Debug)]
     pub struct Entry {
-        title: String,
-        attributes: HashMap<String, Attribute>,
+        pub title: String,
+        pub attributes: HashMap<String, Attribute>,
     }
 
     pub fn parse_file(file_path: &str) -> io::Result<Vec<Entry>> {
