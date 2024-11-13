@@ -10,12 +10,20 @@ fn get_attribute_value(attributes: &HashMap<String, Attribute>, key: &str) -> Op
 }
 
 pub fn write_entry_to_xml(output_dir: &str, entry: &Entry) -> io::Result<()> {
+    // Determine Ped model name based on gender field in Entry struct
+    let ped_model = match entry.gender.as_deref() {
+        Some("Male") => "MP_M_FREEMODE_01",  // Male
+        Some("Female") => "MP_F_FREEMODE_01",  // Female
+        _ => "N/A Gender",  // Default if gender is not provided or invalid
+    };
+
     let outfit_comment = if !entry.title.is_empty() {
         format!("<!-- {} --> ", entry.title)
     } else {
         String::new()
     };
 
+    // Build XML string for each attribute
     let xml_content = format!(
         "{}<Ped chance=\"UPTOPLAYER\" \
             prop_glasses=\"{}\" tex_glasses=\"{}\" \
@@ -58,7 +66,7 @@ pub fn write_entry_to_xml(output_dir: &str, entry: &Entry) -> io::Result<()> {
         get_attribute_value(&entry.attributes, "Tasks").unwrap_or((0, 0)).1,
         get_attribute_value(&entry.attributes, "Hands").unwrap_or((0, 0)).0,
         get_attribute_value(&entry.attributes, "Hands").unwrap_or((0, 0)).1,
-        get_attribute_value(&entry.attributes, "Gender").unwrap_or((0, 0)).0,
+        ped_model,  // Use the determined model name
     );
 
     // Open file in append mode
