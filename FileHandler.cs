@@ -21,7 +21,7 @@ namespace EUPtoUB
             }
         }
 
-        internal static void AppendFile(string outfitName)
+        internal static void PrintOutfit(string outfitName)
         {
             string outfitComment = outfitName == String.Empty ? String.Empty : $"<!-- {outfitName} --> ";
             string str = $"{outfitComment}<Ped chance=\"UPTOPLAYER\" " +

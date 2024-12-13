@@ -1,13 +1,12 @@
 ﻿using Rage.Attributes;
 
-namespace EUPtoUB
+namespace EUPtoUB;
+
+internal static class ConsoleCommands
 {
-    internal static class ConsoleCommands
+    [ConsoleCommand("Prints the current outfit to a text file in the UB XML Format")]
+    public static void PrintCurrentOutfit(string outfitName = "")
     {
-        [ConsoleCommand("Prints the current outfit to a text file in the UB XML Format")]
-        public static void PrintCurrentOutfit(string outfitName = "")
-        {
-            FileHandler.AppendFile(outfitName);
-        }
+        FileHandler.PrintOutfit(outfitName);
     }
 }
