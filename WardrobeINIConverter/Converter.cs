@@ -6,6 +6,7 @@ internal static class Converter
 {
     internal static void Convert(List<Entry> entries)
     {
+        Console.WriteLine("Converting outfits...");
          var sb = new StringBuilder();
 
         foreach (var data in entries)
@@ -46,7 +47,8 @@ internal static class Converter
                           $"comp_hands=\"{parachuteSet.CompId}\" tex_hands=\"{parachuteSet.TexId}\">" +
                           $"{gender}</Ped>");
         }
-
+        Console.WriteLine("Finished converting...");
+        Console.WriteLine("Printing!");
         // Write the entire batch to the file at once
         File.WriteAllText(@"WardrobeINIConverter\ConvertedLines.txt", sb.ToString());
     }

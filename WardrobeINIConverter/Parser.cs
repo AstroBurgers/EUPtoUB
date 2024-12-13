@@ -4,11 +4,14 @@ internal static class Parser
 {
     internal static List<Entry> ParseFile(string filePath)
     {
+        Console.WriteLine("Initializing parser...");
         // Read all lines at once to minimize I/O
         var allLines = File.ReadAllLines(filePath);
+        Console.WriteLine("Read file...");
 
         // Split lines into sections
         var sections = SplitIntoSections(allLines);
+        Console.WriteLine("Chunked file...");
         
         // Parse sections in parallel
         var parsedEntries = new List<Entry>();
@@ -23,7 +26,8 @@ internal static class Parser
                 parsedEntries.Add(entry);
             }
         });
-
+        
+        Console.WriteLine("Finished parsing file...");
         return parsedEntries;
     }
 
