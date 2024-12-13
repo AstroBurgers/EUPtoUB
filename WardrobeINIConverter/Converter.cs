@@ -48,6 +48,6 @@ internal static class Converter
         }
 
         // Write the entire batch to the file at once
-        File.WriteAllText(@"Plugins\EUPToUB\ConvertedLines.txt", sb.ToString());
+        File.WriteAllText(@"WardrobeINIConverter\ConvertedLines.txt", sb.ToString());
     }
 }

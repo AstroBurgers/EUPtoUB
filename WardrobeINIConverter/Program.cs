@@ -6,16 +6,28 @@ internal static class WardrobeIniConverter
 {
     internal static void Main()
     {
-        Console.WriteLine("Welcome!");
-        Console.WriteLine("Press enter to continue...");
-        var stopWatch = new Stopwatch();
-        Console.ReadLine();
-        stopWatch.Start();
-        Converter.Convert(Parser.ParseFile(@"plugins\EUP\Wardrobe.ini"));
-        Console.WriteLine("Converted!");
-        stopWatch.Stop();
-        Console.WriteLine($"Elapsed time: {stopWatch.Elapsed.TotalSeconds}seconds - {stopWatch.ElapsedMilliseconds}ms");
-        Console.WriteLine("Press enter to close...");
-        Console.ReadLine();
+        try
+        {
+            Console.WriteLine("Welcome!");
+            Console.WriteLine("Press enter to continue...");
+            var stopWatch = new Stopwatch();
+            Console.ReadLine();
+        
+            stopWatch.Start();
+            Converter.Convert(Parser.ParseFile(@"plugins\EUP\Wardrobe.ini"));
+            stopWatch.Stop();
+        
+            Console.WriteLine("Converted!");
+            Console.WriteLine($"Elapsed time: {stopWatch.Elapsed.TotalSeconds} seconds - {stopWatch.ElapsedMilliseconds} ms");
+
+            Console.WriteLine("Press enter to close...");
+            Console.ReadLine();  // This ensures the console stays open until the user closes it manually
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine("Press enter to close...");
+            Console.ReadLine();  // Keeps the window open if there's an exception
+        }
     }
 }

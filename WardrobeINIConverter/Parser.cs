@@ -34,7 +34,7 @@ internal static class Parser
 
         foreach (var line in allLines)
         {
-            if (line.StartsWith('[') && line.EndsWith(']'))
+            if (line.StartsWith("[") && line.EndsWith("]"))
             {
                 if (currentSection.Count > 0)
                 {
@@ -61,7 +61,7 @@ internal static class Parser
 
         foreach (var line in lines)
         {
-            if (line.StartsWith('[') && line.EndsWith(']'))
+            if (line.StartsWith("[") && line.EndsWith("]"))
             {
                 entryName = line.TrimStart('[').TrimEnd(']');
                 continue;
