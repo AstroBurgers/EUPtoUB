@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using static WardrobeINIConverter.INIHandling.IniParser;
 
 namespace WardrobeINIConverter;
 
@@ -9,6 +10,16 @@ internal static class WardrobeIniConverter
         try
         {
             Console.WriteLine("Welcome!");
+            Console.WriteLine("Verifying needed files exist...");
+            if (!VerifyFiles())
+            {
+                Console.WriteLine("Exiting in 5 seconds...");
+                Thread.Sleep(5000);
+                return;
+            }
+            Console.WriteLine("Reading INI...");
+            LogLines = ParseIniFile();
+            Console.WriteLine($"LogLines: {LogLines}");
             Console.WriteLine("Press enter to continue...");
             var stopWatch = new Stopwatch();
             Console.ReadLine();

@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
+using static WardrobeINIConverter.INIHandling.IniParser;
 
 namespace WardrobeINIConverter;
 
@@ -61,35 +62,32 @@ internal static class Parser
 
         foreach (var line in lines)
         {
+            LogLine(line);
             if (line.StartsWith("[") && line.EndsWith("]"))
             {
                 entryName = line.TrimStart('[').TrimEnd(']');
                 continue;
             }
 
-            if (!string.IsNullOrWhiteSpace(line))
+            if (string.IsNullOrWhiteSpace(line)) continue;
+            var lineSplitEq = line.Split('=');
+            if (lineSplitEq.Length < 2) continue;
+
+            var compName = lineSplitEq[0];
+            if (compName.Equals("Gender"))
             {
-                var lineSplitEq = line.Split('=');
-                if (lineSplitEq.Length < 2) continue;
-
-                var compName = lineSplitEq[0];
-                if (compName.Equals("Gender"))
-                {
-                    gender.Add(compName, lineSplitEq[1]);
-                    continue;
-                }
-
-                var lineSplitCol = lineSplitEq[1].Split(':');
-                if (lineSplitCol.Length == 2)
-                {
-                    var curCombo = new CompCombo
-                    {
-                        CompId = int.Parse(lineSplitCol[0]),
-                        TexId = int.Parse(lineSplitCol[1])
-                    };
-                    parsedCombos.Add(compName, curCombo);
-                }
+                gender.Add(compName, lineSplitEq[1]);
+                continue;
             }
+
+            var lineSplitCol = lineSplitEq[1].Split(':');
+            if (lineSplitCol.Length != 2) continue;
+            var curCombo = new CompCombo
+            {
+                CompId = int.Parse(lineSplitCol[0]),
+                TexId = int.Parse(lineSplitCol[1])
+            };
+            parsedCombos.Add(compName, curCombo);
         }
 
         return new Entry(entryName, parsedCombos, gender);

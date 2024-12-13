@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static WardrobeINIConverter.INIHandling.IniParser;
 
 namespace WardrobeINIConverter;
 
@@ -45,6 +46,7 @@ internal static class Converter
                           $"comp_tasks=\"{vestSet.CompId}\" tex_tasks=\"{vestSet.TexId}\" " +
                           $"comp_hands=\"{parachuteSet.CompId}\" tex_hands=\"{parachuteSet.TexId}\">" +
                           $"{gender}</Ped>");
+            LogLine(sb.ToString());
         }
 
         // Write the entire batch to the file at once
