@@ -1,32 +1,34 @@
-﻿using System.IO;
-using System.Threading.Tasks;
-using static WardrobeINIConverter.INIHandling.IniParser;
-
-namespace WardrobeINIConverter;
+﻿namespace WardrobeINIConverter;
 
 internal static class Parser
 {
-    internal static List<Entry> ParseFile(string filePath)
+    internal static async Task<List<Entry>> ParseFileAsync(string filePath)
     {
         // Read all lines at once to minimize I/O
         var allLines = File.ReadAllLines(filePath);
 
         // Split lines into sections
         var sections = SplitIntoSections(allLines);
-
+        
         // Parse sections in parallel
         var parsedEntries = new List<Entry>();
         Parallel.ForEach(sections, section =>
         {
             var entry = ParseCurrentEntry(section);
+
+            // Log entry processing
+
             lock (parsedEntries) // Avoid race conditions
             {
                 parsedEntries.Add(entry);
             }
         });
 
+        // Signal the logger to stop
+
         return parsedEntries;
     }
+
 
     private static List<List<string>> SplitIntoSections(string[] allLines)
     {
@@ -62,7 +64,6 @@ internal static class Parser
 
         foreach (var line in lines)
         {
-            LogLine(line);
             if (line.StartsWith("[") && line.EndsWith("]"))
             {
                 entryName = line.TrimStart('[').TrimEnd(']');

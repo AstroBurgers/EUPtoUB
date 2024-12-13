@@ -1,15 +1,14 @@
 ﻿using System.Text;
-using static WardrobeINIConverter.INIHandling.IniParser;
 
 namespace WardrobeINIConverter;
 
 internal static class Converter
 {
-    internal static void Convert(List<Entry> entries)
+    internal static void Convert(Task<List<Entry>> entries)
     {
          var sb = new StringBuilder();
 
-        foreach (var data in entries)
+        foreach (var data in entries.Result)
         {
             // Avoid repeated lookups
             var combos = data.Combos.ToDictionary(c => c.Key, c => c.Value);
@@ -46,7 +45,6 @@ internal static class Converter
                           $"comp_tasks=\"{vestSet.CompId}\" tex_tasks=\"{vestSet.TexId}\" " +
                           $"comp_hands=\"{parachuteSet.CompId}\" tex_hands=\"{parachuteSet.TexId}\">" +
                           $"{gender}</Ped>");
-            LogLine(sb.ToString());
         }
 
         // Write the entire batch to the file at once
