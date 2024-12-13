@@ -44,6 +44,7 @@ namespace EUPtoUB
                 $"comp_pants=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompLeg)}\" " +
                 $"tex_pants=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompLeg)}\" " +
                 $"comp_shoes=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompFeet)}\" " +
+                $"tex_shoes=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompFeet)}\" " +
                 $"comp_eyes=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompTeeth)}\" " +
                 $"tex_eyes=\"{ConversionHandlers.GetTextureId(PedComponent.PedCompTeeth)}\" " +
                 $"comp_tasks=\"{ConversionHandlers.GetDrawableId(PedComponent.PedCompSpecial2)}\"  " +
