@@ -30,8 +30,9 @@ internal static class Converter
 
             var outfitComment = data.EntryName;
             var gender = data.Gender["Gender"] == "Male" ? "MP_M_FREEMODE_01" : "MP_F_FREEMODE_01";
-
-            sb.AppendLine($"<!-- {outfitComment} --> <Ped chance=\"UPTOPLAYER\" " +
+            var outfitChance = (100 / entries.Count) <= 0 ? 1 : 100 / entries.Count;
+            
+            sb.AppendLine($"<!-- {outfitComment} --> <Ped chance=\"{outfitChance}\" " +
                           $"prop_glasses=\"{glassesSet.CompId}\" tex_glasses=\"{glassesSet.TexId}\" " +
                           $"prop_hats=\"{hatSet.CompId}\" tex_hats=\"{hatSet.TexId}\" " +
                           $"prop_ears=\"{earSet.CompId}\" tex_ears=\"{earSet.TexId}\" " +
