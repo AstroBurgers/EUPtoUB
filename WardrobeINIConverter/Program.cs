@@ -4,7 +4,7 @@ namespace WardrobeINIConverter;
 internal static class WardrobeIniConverter
 {
     internal static readonly string MainFilePath = @"WardrobeINIConverter\ConvertedLines.txt";
-    internal static async Task Main()
+    internal static void Main()
     {
         try
         {
@@ -21,7 +21,7 @@ internal static class WardrobeIniConverter
             Console.ReadLine();
         
             stopWatch.Start();
-            Converter.Convert(Parser.ParseFileAsync(@"plugins\EUP\Wardrobe.ini"));
+            Converter.Convert(Parser.ParseFile(@"plugins\EUP\Wardrobe.ini"));
             stopWatch.Stop();
             
             Console.WriteLine("Converted!");

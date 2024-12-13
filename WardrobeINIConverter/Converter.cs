@@ -4,11 +4,11 @@ namespace WardrobeINIConverter;
 
 internal static class Converter
 {
-    internal static void Convert(Task<List<Entry>> entries)
+    internal static void Convert(List<Entry> entries)
     {
          var sb = new StringBuilder();
 
-        foreach (var data in entries.Result)
+        foreach (var data in entries)
         {
             // Avoid repeated lookups
             var combos = data.Combos.ToDictionary(c => c.Key, c => c.Value);

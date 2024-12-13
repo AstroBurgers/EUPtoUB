@@ -2,7 +2,7 @@
 
 internal static class Parser
 {
-    internal static async Task<List<Entry>> ParseFileAsync(string filePath)
+    internal static List<Entry> ParseFile(string filePath)
     {
         // Read all lines at once to minimize I/O
         var allLines = File.ReadAllLines(filePath);
@@ -23,8 +23,6 @@ internal static class Parser
                 parsedEntries.Add(entry);
             }
         });
-
-        // Signal the logger to stop
 
         return parsedEntries;
     }
