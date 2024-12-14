@@ -1,14 +1,15 @@
 ﻿namespace WardrobeINIConverter;
 
-internal struct Entry(string entryName, Dictionary<string, CompCombo> combos, Dictionary<string, string> gender)
+internal struct Entry(string entryName, List<CompCombo> combos, string gender)
 {
     internal readonly string EntryName = entryName;
-    internal Dictionary<string, CompCombo> Combos = combos;
-    internal Dictionary<string, string> Gender = gender;
+    internal List<CompCombo> Combos = combos;
+    internal string Gender = gender;
 }
 
-internal struct CompCombo(int compId, int texId)
+internal struct CompCombo(string Name, int compId, int texId)
 {
+    internal string CompName = Name;
     internal int CompId = compId;
     internal int TexId = texId;
 }

@@ -19,8 +19,6 @@ internal static class Parser
         {
             var entry = ParseCurrentEntry(section);
 
-            // Log entry processing
-
             lock (parsedEntries) // Avoid race conditions
             {
                 parsedEntries.Add(entry);
@@ -60,8 +58,8 @@ internal static class Parser
 
     private static Entry ParseCurrentEntry(List<string> lines)
     {
-        var parsedCombos = new Dictionary<string, CompCombo>();
-        var gender = new Dictionary<string, string>();
+        var parsedCombos = new List<CompCombo>();
+        var gender = string.Empty;
         var entryName = string.Empty;
 
         foreach (var line in lines)
@@ -79,7 +77,7 @@ internal static class Parser
             var compName = lineSplitEq[0];
             if (compName.Equals("Gender"))
             {
-                gender.Add(compName, lineSplitEq[1]);
+                gender = lineSplitEq[1].Trim();
                 continue;
             }
 
@@ -90,7 +88,7 @@ internal static class Parser
                 CompId = int.Parse(lineSplitCol[0]),
                 TexId = int.Parse(lineSplitCol[1])
             };
-            parsedCombos.Add(compName, curCombo);
+            parsedCombos.Add(curCombo);
         }
 
         return new Entry(entryName, parsedCombos, gender);
