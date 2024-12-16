@@ -3,7 +3,7 @@ namespace WardrobeINIConverter;
 
 internal static class WardrobeIniConverter
 {
-    internal static readonly string MainFilePath = @"WardrobeINIConverter\ConvertedLines.txt";
+    private const string MainFilePath = @"WardrobeINIConverter\ConvertedLines.txt";
 
     internal static void Main()
     {
@@ -36,12 +36,12 @@ internal static class WardrobeIniConverter
         catch (Exception ex)
         {
             Console.WriteLine($"An error occurred: {ex.Message}");
-            Console.WriteLine("Press enter to close...");
-            Console.ReadLine(); // Keeps the window open if there's an exception
+            Console.WriteLine("Exiting in 5 seconds...");
+            Thread.Sleep(5000);
         }
     }
 
-    internal static bool VerifyFiles()
+    private static bool VerifyFiles()
     {
         if (!Directory.Exists(Path.GetDirectoryName(MainFilePath)))
         {
