@@ -12,24 +12,23 @@ internal static class Parser
         // Split lines into sections
         var sections = SplitIntoSections(allLines);
         Console.WriteLine("Chunked file...");
-        
+
         // Parse sections in parallel
         var parsedEntries = new List<Entry>();
         Parallel.ForEach(sections, section =>
         {
-            var entry = ParseCurrentEntry(section);
+            var entry = ParseEntry(section);
 
             lock (parsedEntries) // Avoid race conditions
             {
                 parsedEntries.Add(entry);
             }
         });
-        
+
         Console.WriteLine("Finished parsing file...");
         return parsedEntries;
     }
-
-
+    
     private static List<List<string>> SplitIntoSections(string[] allLines)
     {
         var sections = new List<List<string>>();
@@ -45,6 +44,7 @@ internal static class Parser
                     currentSection = new List<string>();
                 }
             }
+
             currentSection.Add(line);
         }
 
@@ -56,7 +56,7 @@ internal static class Parser
         return sections;
     }
 
-    private static Entry ParseCurrentEntry(List<string> lines)
+    private static Entry ParseEntry(List<string> lines)
     {
         var parsedCombos = new List<CompCombo>();
         var gender = string.Empty;
