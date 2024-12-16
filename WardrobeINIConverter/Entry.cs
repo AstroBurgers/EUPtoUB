@@ -3,13 +3,13 @@
 internal struct Entry(string entryName, List<CompCombo> combos, string gender)
 {
     internal readonly string EntryName = entryName;
-    internal List<CompCombo> Combos = combos;
-    internal string Gender = gender;
+    internal readonly List<CompCombo> Combos = combos;
+    internal readonly string Gender = gender;
 }
 
-internal struct CompCombo(string Name, int compId, int texId)
+internal struct CompCombo(string name, int compId, int texId)
 {
-    internal string CompName = Name;
+    internal readonly string CompName = name;
     internal int CompId = compId;
     internal int TexId = texId;
 }
