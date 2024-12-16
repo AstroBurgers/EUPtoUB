@@ -62,15 +62,14 @@ internal static class Parser
         var gender = string.Empty;
         var entryName = string.Empty;
 
-        foreach (var line in lines)
+        foreach (var line in lines.Where(line => !string.IsNullOrWhiteSpace(line)))
         {
             if (line.StartsWith("[") && line.EndsWith("]"))
             {
                 entryName = line.TrimStart('[').TrimEnd(']');
                 continue;
             }
-
-            if (string.IsNullOrWhiteSpace(line)) continue;
+            
             var lineSplitEq = line.Split('=');
             if (lineSplitEq.Length < 2) continue;
 
