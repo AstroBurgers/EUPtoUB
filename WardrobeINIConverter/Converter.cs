@@ -34,20 +34,20 @@ internal static class Converter
             var gender = entry.Gender == "Male" ? "MP_M_FREEMODE_01" : "MP_F_FREEMODE_01";
             var outfitChance = 100 / entries.Count <= 0 ? 1 : 100 / entries.Count;
 
-            sb.AppendLine($"<!-- {outfitComment} --> <Ped chance=\"{outfitChance.ToString()}\" " +
-                          $"prop_glasses=\"{glassesSet.CompId.ToString()}\" tex_glasses=\"{glassesSet.TexId.ToString()}\" " +
-                          $"prop_hats=\"{hatSet.CompId.ToString()}\" tex_hats=\"{hatSet.TexId.ToString()}\" " +
-                          $"prop_ears=\"{earSet.CompId.ToString()}\" tex_ears=\"{earSet.TexId.ToString()}\" " +
-                          $"comp_beard=\"{beardSet.CompId.ToString()}\" tex_beard=\"{beardSet.TexId.ToString()}\" " +
-                          $"comp_shirtoverlay=\"{shirtSet.CompId.ToString()}\" tex_shirtoverlay=\"{shirtSet.TexId.ToString()}\" " +
-                          $"comp_shirt=\"{upperSkinSet.CompId.ToString()}\" tex_shirt=\"{upperSkinSet.TexId.ToString()}\" " +
-                          $"comp_decals=\"{decalSet.CompId.ToString()}\" tex_decals=\"{decalSet.TexId.ToString()}\" " +
-                          $"comp_accessories=\"{undercoatSet.CompId.ToString()}\" tex_accessories=\"{undercoatSet.TexId.ToString()}\" " +
-                          $"comp_pants=\"{pantsSet.CompId.ToString()}\" tex_pants=\"{pantsSet.TexId.ToString()}\" " +
-                          $"comp_shoes=\"{shoesSet.CompId.ToString()}\" tex_shoes=\"{shoesSet.TexId.ToString()}\" " +
-                          $"comp_eyes=\"{accessorySet.CompId.ToString()}\" tex_eyes=\"{accessorySet.TexId.ToString()}\" " +
-                          $"comp_tasks=\"{vestSet.CompId.ToString()}\" tex_tasks=\"{vestSet.TexId.ToString()}\" " +
-                          $"comp_hands=\"{parachuteSet.CompId.ToString()}\" tex_hands=\"{parachuteSet.TexId.ToString()}\">" +
+            sb.AppendLine($"<!-- {outfitComment} --> <Ped chance=\"{outfitChance}\" " +
+                          $"prop_glasses=\"{glassesSet.CompId}\" tex_glasses=\"{glassesSet.TexId}\" " +
+                          $"prop_hats=\"{hatSet.CompId}\" tex_hats=\"{hatSet.TexId}\" " +
+                          $"prop_ears=\"{earSet.CompId}\" tex_ears=\"{earSet.TexId}\" " +
+                          $"comp_beard=\"{beardSet.CompId}\" tex_beard=\"{beardSet.TexId}\" " +
+                          $"comp_shirtoverlay=\"{shirtSet.CompId}\" tex_shirtoverlay=\"{shirtSet.TexId}\" " +
+                          $"comp_shirt=\"{upperSkinSet.CompId}\" tex_shirt=\"{upperSkinSet.TexId}\" " +
+                          $"comp_decals=\"{decalSet.CompId}\" tex_decals=\"{decalSet.TexId}\" " +
+                          $"comp_accessories=\"{undercoatSet.CompId}\" tex_accessories=\"{undercoatSet.TexId}\" " +
+                          $"comp_pants=\"{pantsSet.CompId}\" tex_pants=\"{pantsSet.TexId}\" " +
+                          $"comp_shoes=\"{shoesSet.CompId}\" tex_shoes=\"{shoesSet.TexId}\" " +
+                          $"comp_eyes=\"{accessorySet.CompId}\" tex_eyes=\"{accessorySet.TexId}\" " +
+                          $"comp_tasks=\"{vestSet.CompId}\" tex_tasks=\"{vestSet.TexId}\" " +
+                          $"comp_hands=\"{parachuteSet.CompId}\" tex_hands=\"{parachuteSet.TexId}\">" +
                           $"{gender}</Ped>");
         }
 

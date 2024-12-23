@@ -9,7 +9,7 @@ internal struct Entry(string entryName, List<CompCombo> combos, string gender)
 
 internal struct CompCombo(string name, int compId, int texId)
 {
-    internal readonly string CompName = name;
+    internal string CompName = name;
     internal int CompId = compId;
     internal int TexId = texId;
 }

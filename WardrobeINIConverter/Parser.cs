@@ -12,19 +12,9 @@ internal static class Parser
         // Split lines into sections
         var sections = SplitIntoSections(allLines);
         Console.WriteLine("Chunked file...");
-
-        // Parse sections in parallel
-        var parsedEntries = new List<Entry>();
-        Parallel.ForEach(sections, section =>
-        {
-            var entry = ParseEntry(section);
-
-            lock (parsedEntries) // Avoid race conditions
-            {
-                parsedEntries.Add(entry);
-            }
-        });
-
+        
+        var parsedEntries = sections.Select(section => ParseEntry(section)).ToList();
+        
         Console.WriteLine("Finished parsing file...");
         return parsedEntries;
     }
@@ -58,12 +48,14 @@ internal static class Parser
 
     private static Entry ParseEntry(List<string> lines)
     {
+        Console.WriteLine($"Entry has {lines.Count} lines...");
         var parsedCombos = new List<CompCombo>();
         var gender = string.Empty;
         var entryName = string.Empty;
 
         foreach (var line in lines.Where(line => !string.IsNullOrWhiteSpace(line)))
         {
+            Console.WriteLine($"Parsing line: {line}");
             if (line.StartsWith("[") && line.EndsWith("]"))
             {
                 entryName = line.TrimStart('[').TrimEnd(']');
@@ -81,12 +73,13 @@ internal static class Parser
             }
 
             var lineSplitCol = lineSplitEq[1].Split(':');
-            if (lineSplitCol.Length != 2) continue;
-            var curCombo = new CompCombo
+            var curCombo = new CompCombo()
             {
+                CompName = compName,
                 CompId = int.Parse(lineSplitCol[0]),
                 TexId = int.Parse(lineSplitCol[1])
             };
+            Console.WriteLine($"Parsed combo: {compName} - {curCombo.CompId}:{curCombo.TexId}");
             parsedCombos.Add(curCombo);
         }
 
