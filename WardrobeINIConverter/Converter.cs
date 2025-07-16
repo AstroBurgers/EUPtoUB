@@ -4,56 +4,93 @@ namespace WardrobeINIConverter;
 
 internal static class Converter
 {
-    internal static void Convert(List<Entry> entries)
+    internal static void Convert(Entry[] entries)
     {
         Console.WriteLine("Converting outfits...");
-        var sb = new StringBuilder();
 
-        // ReSharper disable once ForCanBeConvertedToForeach
-        for (var index = 0; index < entries.Count; index++)
+        var outfitChance = entries.Length == 0 ? 1 : Math.Max(1, 100 / entries.Length);
+
+        using var writer = new StreamWriter(@"WardrobeINIConverter\ConvertedLines.txt", false, Encoding.UTF8, 65536);
+
+        foreach (var entry in entries)
         {
-            var entry = entries[index];
-            // Avoid repeated lookups
             var combos = entry.Combos;
 
-            var glassesSet = combos.FirstOrDefault(i => i.CompName == "Glasses");
-            var hatSet = combos.FirstOrDefault(i => i.CompName == "Hat");
-            var earSet = combos.FirstOrDefault(i => i.CompName == "Ear");
-            var beardSet = combos.FirstOrDefault(i => i.CompName == "Mask");
-            var shirtSet = combos.FirstOrDefault(i => i.CompName == "Top");
-            var undercoatSet = combos.FirstOrDefault(i => i.CompName == "UnderCoat");
-            var decalSet = combos.FirstOrDefault(i => i.CompName == "Decal");
-            var accessorySet = combos.FirstOrDefault(i => i.CompName == "Accessories");
-            var pantsSet = combos.FirstOrDefault(i => i.CompName == "Pants");
-            var shoesSet = combos.FirstOrDefault(i => i.CompName == "Shoes");
-            var vestSet = combos.FirstOrDefault(i => i.CompName == "Armor");
-            var upperSkinSet = combos.FirstOrDefault(i => i.CompName == "UpperSkin");
-            var parachuteSet = combos.FirstOrDefault(i => i.CompName == "Parachute");
+            var glassesSet = new CompCombo();
+            var hatSet = new CompCombo();
+            var earSet = new CompCombo();
+            var beardSet = new CompCombo();
+            var shirtSet = new CompCombo();
+            var undercoatSet = new CompCombo();
+            var decalSet = new CompCombo();
+            var accessorySet = new CompCombo();
+            var pantsSet = new CompCombo();
+            var shoesSet = new CompCombo();
+            var vestSet = new CompCombo();
+            var upperSkinSet = new CompCombo();
+            var parachuteSet = new CompCombo();
+
+            foreach (var combo in combos)
+            {
+                switch (combo.CompName)
+                {
+                    case "Glasses": glassesSet = combo; break;
+                    case "Hat": hatSet = combo; break;
+                    case "Ear": earSet = combo; break;
+                    case "Mask": beardSet = combo; break;
+                    case "Top": shirtSet = combo; break;
+                    case "UnderCoat": undercoatSet = combo; break;
+                    case "Decal": decalSet = combo; break;
+                    case "Accessories": accessorySet = combo; break;
+                    case "Pants": pantsSet = combo; break;
+                    case "Shoes": shoesSet = combo; break;
+                    case "Armor": vestSet = combo; break;
+                    case "UpperSkin": upperSkinSet = combo; break;
+                    case "Parachute": parachuteSet = combo; break;
+                }
+            }
 
             var outfitComment = entry.EntryName;
             var gender = entry.Gender == "Male" ? "MP_M_FREEMODE_01" : "MP_F_FREEMODE_01";
-            var outfitChance = 100 / entries.Count <= 0 ? 1 : 100 / entries.Count;
 
-            sb.AppendLine($"<!-- {outfitComment} --> <Ped chance=\"{outfitChance}\" " +
-                          $"prop_glasses=\"{glassesSet.CompId}\" tex_glasses=\"{glassesSet.TexId}\" " +
-                          $"prop_hats=\"{hatSet.CompId}\" tex_hats=\"{hatSet.TexId}\" " +
-                          $"prop_ears=\"{earSet.CompId}\" tex_ears=\"{earSet.TexId}\" " +
-                          $"comp_beard=\"{beardSet.CompId}\" tex_beard=\"{beardSet.TexId}\" " +
-                          $"comp_shirtoverlay=\"{shirtSet.CompId}\" tex_shirtoverlay=\"{shirtSet.TexId}\" " +
-                          $"comp_shirt=\"{upperSkinSet.CompId}\" tex_shirt=\"{upperSkinSet.TexId}\" " +
-                          $"comp_decals=\"{decalSet.CompId}\" tex_decals=\"{decalSet.TexId}\" " +
-                          $"comp_accessories=\"{undercoatSet.CompId}\" tex_accessories=\"{undercoatSet.TexId}\" " +
-                          $"comp_pants=\"{pantsSet.CompId}\" tex_pants=\"{pantsSet.TexId}\" " +
-                          $"comp_shoes=\"{shoesSet.CompId}\" tex_shoes=\"{shoesSet.TexId}\" " +
-                          $"comp_eyes=\"{accessorySet.CompId}\" tex_eyes=\"{accessorySet.TexId}\" " +
-                          $"comp_tasks=\"{vestSet.CompId}\" tex_tasks=\"{vestSet.TexId}\" " +
-                          $"comp_hands=\"{parachuteSet.CompId}\" tex_hands=\"{parachuteSet.TexId}\">" +
-                          $"{gender}</Ped>");
+            // Assuming TextWriter 'writer' and all sets (CompCombo structs) available
+            writer.Write("<!-- ");
+            writer.Write(outfitComment);
+            writer.Write("\" --> <Ped chance=\"");
+            writer.Write(outfitChance);
+            writer.Write("\" ");
+
+            void WriteCompPair(string prefix, CompCombo set)
+            {
+                writer.Write(prefix);
+                writer.Write(set.CompId);
+                writer.Write("\" tex_");
+                writer.Write(prefix.Substring(5)); // e.g. "glasses" from "prop_glasses"
+                writer.Write("=\"");
+                writer.Write(set.TexId);
+                writer.Write("\" ");
+            }
+            
+            WriteCompPair("prop_glasses", glassesSet);
+            WriteCompPair("prop_hats", hatSet);
+            WriteCompPair("prop_ears", earSet);
+            WriteCompPair("comp_beard", beardSet);
+            WriteCompPair("comp_shirtoverlay", shirtSet);
+            WriteCompPair("comp_shirt", upperSkinSet);
+            WriteCompPair("comp_decals", decalSet);
+            WriteCompPair("comp_accessories", undercoatSet);
+            WriteCompPair("comp_pants", pantsSet);
+            WriteCompPair("comp_shoes", shoesSet);
+            WriteCompPair("comp_eyes", accessorySet);
+            WriteCompPair("comp_tasks", vestSet);
+            WriteCompPair("comp_hands", parachuteSet);
+
+            writer.Write('>');
+            writer.Write(gender);
+            writer.WriteLine("</Ped>");
+
         }
 
-        Console.WriteLine("Finished converting...");
-        Console.WriteLine("Printing!");
-        // Write the entire batch to the file at once
-        File.WriteAllText(@"WardrobeINIConverter\ConvertedLines.txt", sb.ToString());
+        Console.WriteLine("Finished converting and writing to file.");
     }
 }
