@@ -80,41 +80,44 @@ internal static class Parser
         {
             if (string.IsNullOrWhiteSpace(raw)) continue;
 
-            var line = raw.Trim();
+            var line = raw?.Trim();
 
-            if (line.Length > 2 && line[0] == '[' && line[line.Length - 1] == ']')
+            if (line is { Length: > 2 } && line[0] == '[' && line[line.Length - 1] == ']')
             {
                 entryName = line.Substring(1, line.Length - 2);
                 continue;
             }
 
-            int eq = line.IndexOf('=');
-            if (eq == -1) continue;
-
-            string compNameStr = line.Substring(0, eq);
-            string valueStr = line.Substring(eq + 1);
-
-            if (string.Equals(compNameStr, "Gender", StringComparison.OrdinalIgnoreCase))
+            if (line != null)
             {
-                gender = valueStr.Trim();
-                continue;
+                int eq = line.IndexOf('=');
+                if (eq == -1) continue;
+
+                string compNameStr = line.Substring(0, eq);
+                string valueStr = line.Substring(eq + 1);
+
+                if (string.Equals(compNameStr, "Gender", StringComparison.OrdinalIgnoreCase))
+                {
+                    gender = valueStr.Trim();
+                    continue;
+                }
+
+                int colon = valueStr.IndexOf(':');
+                if (colon == -1) continue;
+
+                string idStr = valueStr.Substring(0, colon);
+                string texStr = valueStr.Substring(colon + 1);
+
+                if (!TryParseInt(idStr, out int compId)) continue;
+                if (!TryParseInt(texStr, out int texId)) continue;
+
+                comboBuffer[comboCount++] = new CompComboTemp
+                {
+                    CompName = compNameStr,
+                    CompId = compId,
+                    TexId = texId
+                };
             }
-
-            int colon = valueStr.IndexOf(':');
-            if (colon == -1) continue;
-
-            string idStr = valueStr.Substring(0, colon);
-            string texStr = valueStr.Substring(colon + 1);
-
-            if (!TryParseInt(idStr, out int compId)) continue;
-            if (!TryParseInt(texStr, out int texId)) continue;
-
-            comboBuffer[comboCount++] = new CompComboTemp
-            {
-                CompName = compNameStr,
-                CompId = compId,
-                TexId = texId
-            };
         }
 
         var finalList = GetSharedComboList();

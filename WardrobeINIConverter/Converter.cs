@@ -52,25 +52,13 @@ internal static class Converter
 
             var outfitComment = entry.EntryName;
             var gender = entry.Gender == "Male" ? "MP_M_FREEMODE_01" : "MP_F_FREEMODE_01";
-
-            // Assuming TextWriter 'writer' and all sets (CompCombo structs) available
+            
             writer.Write("<!-- ");
-            writer.Write(outfitComment);
-            writer.Write("\" --> <Ped chance=\"");
+            writer.Write(outfitComment); // e.g., M Grapeseed Class A
+            writer.Write(" --> <Ped chance=\"");
             writer.Write(outfitChance);
             writer.Write("\" ");
 
-            void WriteCompPair(string prefix, CompCombo set)
-            {
-                writer.Write(prefix);
-                writer.Write(set.CompId);
-                writer.Write("\" tex_");
-                writer.Write(prefix.Substring(5)); // e.g. "glasses" from "prop_glasses"
-                writer.Write("=\"");
-                writer.Write(set.TexId);
-                writer.Write("\" ");
-            }
-            
             WriteCompPair("prop_glasses", glassesSet);
             WriteCompPair("prop_hats", hatSet);
             WriteCompPair("prop_ears", earSet);
@@ -88,7 +76,19 @@ internal static class Converter
             writer.Write('>');
             writer.Write(gender);
             writer.WriteLine("</Ped>");
+            continue;
 
+            void WriteCompPair(string prefix, CompCombo set)
+            {
+                writer.Write(prefix);
+                writer.Write("=\"");
+                writer.Write(set.CompId);
+                writer.Write("\" tex_");
+                writer.Write(prefix.Substring(5)); // e.g. "glasses" from "prop_glasses"
+                writer.Write("=\"");
+                writer.Write(set.TexId);
+                writer.Write("\" ");
+            }
         }
 
         Console.WriteLine("Finished converting and writing to file.");
